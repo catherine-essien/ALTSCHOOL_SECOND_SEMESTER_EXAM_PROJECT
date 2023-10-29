@@ -1,0 +1,99 @@
+---
+
+- hosts: all
+  become: yes
+  pre_tasks:
+
+  - name: update & upgrade server
+    apt: 
+      update_cache: yes
+      upgrade: yes
+
+  - name: set cron job to check uptime of the server every 12 am
+    cron:
+      name: set cron job to check uptime of the server every 12 am
+      minute: "0"
+      hour: "0"
+      day: "*"
+      month: "*"
+      weekday: "*"
+      job: "/usr/bin/uptime > /var/log/uptime_check.log 2>&1"
+      state: present
+
+  - name: copy the bash script to slave machine
+    copy:
+      src: config_webserver.sh
+      dest: ~/
+      owner: root
+      group: root
+      mode: 0744
+
+  - name: Set Execute Permissions on the Script
+    command: chmod +x ~/config_webserver.sh
+
+  - name: Run Bash Script
+    command: bash config_webserver.sh < /dev/null
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ---
+# - hosts: all
+#   become: yes
+#   tasks:
+#     - name: update & upgrade server
+#       apt:
+#         update_cache: yes
+#         upgrade: yes
+
+#     - name: set cron job for server uptime - 12am
+#       cron:
+#         name: "Check Uptime"
+#         job: "0 0 * * * /usr/bin/uptime > /var/log/requestedinfo.log 2>&1"
+#         state: present
+
+#     - name: copy the bash script to the slave machine
+#       copy:
+#         src: /root/lamp.sh
+#         dest: ~/lamp.sh
+#         owner: root
+#         group: root
+#         mode: 0744
+
+#     - name: copy config_webserver.sh to the slave machine
+#       copy:
+#         src: /root/config_webserver.sh
+#         dest: ~/config_webserver.sh
+#         owner: root
+#         group: root
+#         mode: 0744
+
+#     - name: Copy lamp.sh to the slave machine
+#       copy:
+#         src: /root/lamp.sh
+#         dest: ~/lamp.sh
+#         remote_src: yes
+
+
+#     - name: Set Execute Permissions on the Script
+#       script: chmod +x ~/lamp.sh
+#       script: chmod +x ~/config_webserver.sh
+
+#     - name: Run Bash Script lamp.sh
+#       script: bash ~/lamp.sh < /dev/null
+
+#     - name: Run Bash Script config_webserver.sh
+#       script: bash ~/config_webserver.sh < /dev/null

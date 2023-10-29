@@ -58,7 +58,7 @@ By following the steps outlined in this documentation, you can automate the depl
 4. [Project Setup](#project-setup)
 5. [Vagrant Configuration (Vagrantfile)](#vagrant-configuration-vagrantfile)
 6. [Bash Deployment Script (lamp.sh)](#bash-deployment-script-deploysh)
-7. [Playbook.yaml](#ansible-playbook-deployyml)
+7. [ansibpPlaybook.yaml](#ansible-playbook-deployyml)
 8. [Documentation.md (README.md)](#documentation-readmemd)
 9. [Screenshot Evidence (screenshot.png)](#screenshot-evidence-screenshotpng)
 10. [Running the Project](#running-the-project)
@@ -97,13 +97,13 @@ Execute the following commands to provision the "Master" and "Slave" VMs using V
     ```bash
     vagrant up
     ```
-5. Deploy the LAMP Stack
+5. Deploy the lamp.sh
 SSH into the "Master" VM:
 #
     ```bash
     vagrant ssh master
     ```
-Run the deployment script to set up the LAMP stack with Laravel and PostgreSQL:
+Run the deployment script to set up the lamp.sh  with Laravel and PostgreSQL:
 
     ```bash
     bash /vagrant/deploy.sh
@@ -118,7 +118,7 @@ Execute the Ansible playbook to run the deployment script on the "Slave" node an
 
     ```bash
     Copy code
-    playbook.ayml
+    ansibleplaybook.yaml
     ```
 7.  Verify Application Accessibility
 After the Ansible playbook execution, you can check the screenshot (screenshot.png) to verify that the PHP application is accessible through the "Slave" VM's IP address.
